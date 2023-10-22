@@ -92,37 +92,15 @@ int main()
             int32_t results[4];
             _mm_storeu_si128((__m128i*)results, equalResult);  // Almacena los resultados en la matriz
 
-            //for (int i = 0; i < 4; i++) {
-                if (results[0] == 0xFFFFFFFF) {
+            for (int i = 0; i < 4; i++) {
+                if (results[i] == 0xFFFFFFFF) {
                     // Si el elemento es igual a 0xFFFFFFFF, entra al if
                     // Realiza las acciones correspondientes
-                    pixels[y][x+3][0] = circleColor[0]; // Rojo
-                    pixels[y][x+3][1] = circleColor[1]; // Verde
-                    pixels[y][x+3][2] = circleColor[2]; // Azul
+                    pixels[y][x + (3 - i)][0] = circleColor[0]; // Rojo
+                    pixels[y][x + (3 - i)][1] = circleColor[1]; // Verde
+                    pixels[y][x + (3 - i)][2] = circleColor[2]; // Azul
                 }
-                if (results[1] == 0xFFFFFFFF) {
-                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
-                    // Realiza las acciones correspondientes
-                    pixels[y][x + 2][0] = circleColor[0]; // Rojo
-                    pixels[y][x + 2][1] = circleColor[1]; // Verde
-                    pixels[y][x + 2][2] = circleColor[2]; // Azul
-                }
-                if (results[2] == 0xFFFFFFFF) {
-                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
-                    // Realiza las acciones correspondientes
-                    pixels[y][x + 1][0] = circleColor[0]; // Rojo
-                    pixels[y][x + 1][1] = circleColor[1]; // Verde
-                    pixels[y][x + 1][2] = circleColor[2]; // Azul
-                }
-                if (results[3] == 0xFFFFFFFF) {
-                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
-                    // Realiza las acciones correspondientes
-                    pixels[y][x][0] = circleColor[0]; // Rojo
-                    pixels[y][x][1] = circleColor[1]; // Verde
-                    pixels[y][x][2] = circleColor[2]; // Azul
-                }
-                
-            //}
+            }
         }
     }
 
@@ -132,15 +110,40 @@ int main()
     int squareSize = 290;
     unsigned char squareColor[3] = {77, 198, 123}; // Color negro
 
-    for (int y = squareY; y < squareY + squareSize; y++)
-    {
-        for (int x = squareX; x < squareX + squareSize; x++)
-        {
-            if (x >= 0 && x < width && y >= 0 && y < height)
-            {
-                pixels[y][x][0] = squareColor[0]; // Rojo
-                pixels[y][x][1] = squareColor[1]; // Verde
-                pixels[y][x][2] = squareColor[2]; // Azul
+    for (int y = squareY; y < squareY + squareSize; y++) {
+        for (int x = 0; x < width; x += 4) {
+            // Cargar 4 valores x, y un y en los registros
+            __m128i xValues = _mm_set_epi32(x, x + 1, x + 2, x + 3);
+            __m128i yValues = _mm_set1_epi32(y - squareY);
+
+            // Verificar si estamos dentro de los límites del cuadrado
+            __m128i withinSquareBounds = _mm_and_si128(
+                _mm_cmpgt_epi32(xValues, _mm_set1_epi32(squareX)),
+                _mm_cmplt_epi32(xValues, _mm_set1_epi32(squareX + squareSize))
+            );
+
+            withinSquareBounds = _mm_and_si128(
+                withinSquareBounds,
+                _mm_cmpgt_epi32(yValues, _mm_set1_epi32(0))
+            );
+
+            withinSquareBounds = _mm_and_si128(
+                withinSquareBounds,
+                _mm_cmplt_epi32(yValues, _mm_set1_epi32(squareSize))
+            );
+
+            // Utilizar una matriz de int32_t para almacenar los resultados
+            int32_t results[4];
+            _mm_storeu_si128((__m128i*)results, withinSquareBounds);  // Almacena los resultados en la matriz
+
+            for (int i = 0; i < 4; i++) {
+                if (results[i] == 0xFFFFFFFF) {
+                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
+                    // Realiza las acciones correspondientes
+                    pixels[y][x + (3 - i)][0] = squareColor[0]; // Rojo
+                    pixels[y][x + (3 - i)][1] = squareColor[1]; // Verde
+                    pixels[y][x + (3 - i)][2] = squareColor[2]; // Azul
+                }
             }
         }
     }
@@ -150,8 +153,7 @@ int main()
     int triangleY[3] = {36, 95, 95};
     unsigned char triangleColor[3] = {10, 98, 134}; // Color negro
 
-    for (int i = 0; i < 3; i++)
-    {
+    for (int i = 0; i < 3; i++) {
         int x1 = triangleX[i];
         int y1 = triangleY[i];
         int x2 = triangleX[(i + 1) % 3];
@@ -164,25 +166,34 @@ int main()
         int sy = (y1 < y2) ? 1 : -1;
         int err = dx - dy;
 
-        while (x1 != x2 || y1 != y2)
-        {
-            if (x1 >= 0 && x1 < width && y1 >= 0 && y1 < height)
-            {
-                pixels[y1][x1][0] = triangleColor[0]; // Rojo
-                pixels[y1][x1][1] = triangleColor[1]; // Verde
-                pixels[y1][x1][2] = triangleColor[2]; // Azul
+        __m128i xValues = _mm_set1_epi32(x1);
+        __m128i yValues = _mm_set1_epi32(y1);
+
+
+        while (x1 != x2 || y1 != y2) {
+            // Utilizar instrucciones SIMD para mejorar el rendimiento
+            __m128i xyValues = _mm_unpacklo_epi32(xValues, yValues);
+
+            int x = _mm_cvtsi128_si32(xValues);
+            int y = _mm_cvtsi128_si32(yValues);
+
+            if (x >= 0 && x < width && y >= 0 && y < height) {
+                // Establecer el color del píxel
+                pixels[y][x][0] = triangleColor[0]; // Rojo
+                pixels[y][x][1] = triangleColor[1]; // Verde
+                pixels[y][x][2] = triangleColor[2]; // Azul
             }
 
             int e2 = 2 * err;
-            if (e2 > -dy)
-            {
+            if (e2 > -dy) {
                 err = err - dy;
-                x1 = x1 + sx;
+                xValues = _mm_add_epi32(xValues, _mm_set1_epi32(sx));
+                x1 += sx; // Actualizar x1
             }
-            if (e2 < dx)
-            {
+            if (e2 < dx) {
                 err = err + dx;
-                y1 = y1 + sy;
+                yValues = _mm_add_epi32(yValues, _mm_set1_epi32(sy));
+                y1 += sy; // Actualizar y1
             }
         }
     }

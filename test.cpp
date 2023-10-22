@@ -2,6 +2,14 @@
 #include <fstream>
 #include <cmath>
 #include <immintrin.h>
+
+void print_m128i(__m128i myRegister,const char* label) {
+    int myArray[4];
+    _mm_storeu_si128((__m128i*)myArray, myRegister);
+
+    std::cout << label << "  Elementos "  << " :(" << myArray[0]<< " : " << myArray[1]  << " : " << myArray[2]  << " : " << myArray[3]<<  ")"<< std::endl;
+}
+
 int main()
 {
     const int width = 640;
@@ -39,22 +47,26 @@ int main()
     
     const double circleRadiusSquared = circleRadius * circleRadius;
 
-    for (int y = 0; y < height; y++)
+    for (int y = 0; y < height ; y++)
     {
+    //int y = 38;
         for (int x = 0; x < width; x += 4)
         {
             // Cargar 4 valores  x, y un y en los registros
             __m128i xValues = _mm_set_epi32(x, x + 1, x + 2, x + 3);
+            //print_m128i(xValues,"xValues");
             __m128i yValues = _mm_set1_epi32(y - circleY);
-
+            //print_m128i(yValues,"yValues");
             // Calcular (x - circleX)^2 
             __m128i dx = _mm_sub_epi32(xValues, _mm_set1_epi32(circleX));
+            //print_m128i(dx,"dx");
             __m128i dxSquared = _mm_mullo_epi32(dx, dx);
-
+            //print_m128i(dxSquared,"dxSquared");
             // Calcular (x - circleX)^2 + (y - circleY)^2 
             __m128i dySquared = _mm_mullo_epi32(yValues, yValues);
+            //print_m128i(dySquared,"dySquared");
             __m128i distanceSquared = _mm_add_epi32(dxSquared, dySquared);
-
+            //print_m128i(distanceSquared,"distanceSquared");
             // Comparacion distance < radius
 
             /*
@@ -63,8 +75,9 @@ int main()
             el elemento correspondiente en radiusSquared, y 0 en caso contrario.
             */
             __m128i radiusSquared = _mm_set1_epi32(static_cast<int>(circleRadiusSquared));
+            //print_m128i(radiusSquared,"radiusSquared");
             __m128i comparison = _mm_cmplt_epi32(distanceSquared, radiusSquared);
-
+            //print_m128i(comparison,"comparison");
             /*
             mask es un entero de 4 bits donde cada bit corresponde a uno de los cuatro
              píxeles que se comparan.
@@ -72,17 +85,44 @@ int main()
              _mm_movemask_ps pasa la mascara de forma vectorial a escalar
             */
 
-            int mask = _mm_movemask_ps(_mm_castsi128_ps(comparison));
+            __m128i mask = _mm_set1_epi32(0xFFFFFFFF);  // Máscara para comparación
+            __m128i equalResult = _mm_cmpeq_epi32(comparison, mask);  // Comparación de elementos
+            //print_m128i(equalResult,"equalResult");
+            // Utilizar una matriz de int32_t para almacenar los resultados
+            int32_t results[4];
+            _mm_storeu_si128((__m128i*)results, equalResult);  // Almacena los resultados en la matriz
 
-            for (int i = 0; i < 4; i++)
-            {
-                if (mask & (1 << i))
-                {
-                    pixels[y][x + i][0] = circleColor[0]; // Red
-                    pixels[y][x + i][1] = circleColor[1]; // Green
-                    pixels[y][x + i][2] = circleColor[2]; // Blue
+            //for (int i = 0; i < 4; i++) {
+                if (results[0] == 0xFFFFFFFF) {
+                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
+                    // Realiza las acciones correspondientes
+                    pixels[y][x+3][0] = circleColor[0]; // Rojo
+                    pixels[y][x+3][1] = circleColor[1]; // Verde
+                    pixels[y][x+3][2] = circleColor[2]; // Azul
                 }
-            }
+                if (results[1] == 0xFFFFFFFF) {
+                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
+                    // Realiza las acciones correspondientes
+                    pixels[y][x + 2][0] = circleColor[0]; // Rojo
+                    pixels[y][x + 2][1] = circleColor[1]; // Verde
+                    pixels[y][x + 2][2] = circleColor[2]; // Azul
+                }
+                if (results[2] == 0xFFFFFFFF) {
+                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
+                    // Realiza las acciones correspondientes
+                    pixels[y][x + 1][0] = circleColor[0]; // Rojo
+                    pixels[y][x + 1][1] = circleColor[1]; // Verde
+                    pixels[y][x + 1][2] = circleColor[2]; // Azul
+                }
+                if (results[3] == 0xFFFFFFFF) {
+                    // Si el elemento es igual a 0xFFFFFFFF, entra al if
+                    // Realiza las acciones correspondientes
+                    pixels[y][x][0] = circleColor[0]; // Rojo
+                    pixels[y][x][1] = circleColor[1]; // Verde
+                    pixels[y][x][2] = circleColor[2]; // Azul
+                }
+                
+            //}
         }
     }
 

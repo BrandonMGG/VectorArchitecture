@@ -1,0 +1,20 @@
+module sign_extend(input logic [26:0] num_in,
+							input logic [1:0] imm_src,
+							output logic [31:0] num_out);
+
+	always_comb
+		case(imm_src)
+		
+			// 27-bit unsigned immediate
+			2'b00: num_out = {4'b0, num_in[26:0]};
+			
+			// 17-bit unsigned immediate
+			2'b01: num_out = {15'b0, num_in[16:0]};
+			
+			// 24-bit two's complement shifted branch
+			2'b10: num_out = {16'b0, num_in[15:0]};
+			
+			default: num_out = 32'bx; // undefined
+		endcase
+	
+endmodule

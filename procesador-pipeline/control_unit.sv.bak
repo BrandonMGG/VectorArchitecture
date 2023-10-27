@@ -1,0 +1,24 @@
+module control_unit (input [1:0] type,
+							input [4:0] func,
+							input rst,
+							
+							output JumpI,
+							output JumpCI,
+							output JumpCD,
+							output MemToReg,
+							output MemRead,
+							output MemWrite,
+							output [2:0] ALUOp,
+							output ALUSrc,
+							output RegWrite,
+							output [1:0] ImmSrc,
+							output [1:0] RegDtn,
+							output RegSrc2,
+							output [1:0] RegSrc1);
+			
+// completar contenido del modulo
+
+			
+							
+endmodule
+							

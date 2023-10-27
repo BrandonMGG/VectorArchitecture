@@ -1,0 +1,62 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/guillen/Downloads/Arqui/proyecto2_arqui_hecho/Proyecto 2/procesador-pipeline-final/procesador-pipeline/simulation/modelsim
+vmemoryAccess_tb
+Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+!s110 1682089543
+!i10b 1
+!s100 `SCU]XIVelPb_kieSb5b@2
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IkN<dgYlE@6nAC`Aa81K5?2
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+w1652415418
+8/home/guillen/Downloads/Arqui/proyecto2_arqui_hecho/Proyecto 2/procesador-pipeline-final/procesador-pipeline/memoryAccess_tb.sv
+F/home/guillen/Downloads/Arqui/proyecto2_arqui_hecho/Proyecto 2/procesador-pipeline-final/procesador-pipeline/memoryAccess_tb.sv
+!i122 0
+L0 1 60
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1682089543.000000
+!s107 /home/guillen/Downloads/Arqui/proyecto2_arqui_hecho/Proyecto 2/procesador-pipeline-final/procesador-pipeline/memoryAccess_tb.sv|
+!s90 -reportprogress|300|-work|work|/home/guillen/Downloads/Arqui/proyecto2_arqui_hecho/Proyecto 2/procesador-pipeline-final/procesador-pipeline/memoryAccess_tb.sv|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+nmemory@access_tb
+vtestbench
+R1
+!s110 1684126309
+!i10b 1
+!s100 mB@]B=CFPFGV@V<`YdkDL3
+R2
+I6:`W]KV^3^3iNnnRhHZ>T0
+R3
+S1
+d/home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/simulation/modelsim
+w1683898800
+8/home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/testbench.sv
+F/home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/testbench.sv
+!i122 2
+L0 2 32
+R4
+r1
+!s85 0
+31
+!s108 1684126309.000000
+!s107 /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/testbench.sv|
+!s90 -reportprogress|300|-work|work|/home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/testbench.sv|
+!i113 1
+R5
+R6

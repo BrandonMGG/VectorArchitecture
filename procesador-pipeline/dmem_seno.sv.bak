@@ -1,0 +1,17 @@
+module dmem_rom_seno (input logic [31:0] address,
+				output logic [31:0] rd);
+	
+	logic [31:0] dmem_seno[0:8099];
+	
+	initial
+	
+		// Data meant to be read
+		// DIRECCIÓN DE JOSE
+		//$readmemh("C:/altera/14.1/procesador_pipeline/imageData.txt", dmem_ROM);
+		// DIRECCIÓN DE NACHO NAVARRO
+		$readmemh("/home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/seno.txt", dmem_seno);
+		
+		
+	assign rd = dmem_seno[address[31:0]];
+	
+endmodule 

@@ -1,0 +1,13 @@
+module procesador_pipeline(input clk, rst);
+
+	// Definicion de la red entre módulos.
+	
+	logic [31:0] pc_in, pc_out;
+	
+	// MODULOS EN IF
+	pc_register pc (clk, ~rst, 1'b1, pc_in, pc_out);
+	
+	adder add_pc (
+	
+
+endmodule

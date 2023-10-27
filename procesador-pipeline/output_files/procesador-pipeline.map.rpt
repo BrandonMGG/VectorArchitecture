@@ -1,0 +1,671 @@
+Analysis & Synthesis report for procesador-pipeline
+Mon May 15 22:28:28 2023
+Quartus Prime Version 22.1std.1 Build 917 02/14/2023 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Parameter Settings for User Entity Instance: mux_2to1:mux_pc
+ 10. Parameter Settings for User Entity Instance: mux_4to1:mux_RR1
+ 11. Parameter Settings for User Entity Instance: mux_2to1:mux_RR2
+ 12. Parameter Settings for User Entity Instance: mux_4to1:mux_RR3
+ 13. Parameter Settings for User Entity Instance: mux_2to1:mux_alu
+ 14. Parameter Settings for User Entity Instance: mux_2to1:mux_wb
+ 15. Port Connectivity Checks: "segment_ex_mem:ex_mem"
+ 16. Port Connectivity Checks: "mux_4to1:mux_RR3"
+ 17. Port Connectivity Checks: "adder:add_pc"
+ 18. Port Connectivity Checks: "pc_register:pc"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
+ 22. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2023  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++---------------------------------+------------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Mon May 15 22:28:28 2023          ;
+; Quartus Prime Version           ; 22.1std.1 Build 917 02/14/2023 SC Lite Edition ;
+; Revision Name                   ; procesador-pipeline                            ;
+; Top-level Entity Name           ; procesador_pipeline                            ;
+; Family                          ; Cyclone V                                      ;
+; Logic utilization (in ALMs)     ; N/A                                            ;
+; Total registers                 ; 0                                              ;
+; Total pins                      ; 3                                              ;
+; Total virtual pins              ; 0                                              ;
+; Total block memory bits         ; 0                                              ;
+; Total DSP Blocks                ; 0                                              ;
+; Total HSSI RX PCSs              ; 0                                              ;
+; Total HSSI PMA RX Deserializers ; 0                                              ;
+; Total HSSI TX PCSs              ; 0                                              ;
+; Total HSSI PMA TX Serializers   ; 0                                              ;
+; Total PLLs                      ; 0                                              ;
+; Total DLLs                      ; 0                                              ;
++---------------------------------+------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                               ;
++---------------------------------------------------------------------------------+---------------------+---------------------+
+; Option                                                                          ; Setting             ; Default Value       ;
++---------------------------------------------------------------------------------+---------------------+---------------------+
+; Device                                                                          ; 5CSEMA5F31C6        ;                     ;
+; Top-level entity name                                                           ; procesador_pipeline ; procesador-pipeline ;
+; Family name                                                                     ; Cyclone V           ; Cyclone V           ;
+; Use smart compilation                                                           ; Off                 ; Off                 ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                  ; On                  ;
+; Enable compact report table                                                     ; Off                 ; Off                 ;
+; Restructure Multiplexers                                                        ; Auto                ; Auto                ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                 ; Off                 ;
+; Create Debugging Nodes for IP Cores                                             ; Off                 ; Off                 ;
+; Preserve fewer node names                                                       ; On                  ; On                  ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable              ; Enable              ;
+; Verilog Version                                                                 ; Verilog_2001        ; Verilog_2001        ;
+; VHDL Version                                                                    ; VHDL_1993           ; VHDL_1993           ;
+; State Machine Processing                                                        ; Auto                ; Auto                ;
+; Safe State Machine                                                              ; Off                 ; Off                 ;
+; Extract Verilog State Machines                                                  ; On                  ; On                  ;
+; Extract VHDL State Machines                                                     ; On                  ; On                  ;
+; Ignore Verilog initial constructs                                               ; Off                 ; Off                 ;
+; Iteration limit for constant Verilog loops                                      ; 5000                ; 5000                ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                 ; 250                 ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                  ; On                  ;
+; Infer RAMs from Raw Logic                                                       ; On                  ; On                  ;
+; Parallel Synthesis                                                              ; On                  ; On                  ;
+; DSP Block Balancing                                                             ; Auto                ; Auto                ;
+; NOT Gate Push-Back                                                              ; On                  ; On                  ;
+; Power-Up Don't Care                                                             ; On                  ; On                  ;
+; Remove Redundant Logic Cells                                                    ; Off                 ; Off                 ;
+; Remove Duplicate Registers                                                      ; On                  ; On                  ;
+; Ignore CARRY Buffers                                                            ; Off                 ; Off                 ;
+; Ignore CASCADE Buffers                                                          ; Off                 ; Off                 ;
+; Ignore GLOBAL Buffers                                                           ; Off                 ; Off                 ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                 ; Off                 ;
+; Ignore LCELL Buffers                                                            ; Off                 ; Off                 ;
+; Ignore SOFT Buffers                                                             ; On                  ; On                  ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                 ; Off                 ;
+; Optimization Technique                                                          ; Balanced            ; Balanced            ;
+; Carry Chain Length                                                              ; 70                  ; 70                  ;
+; Auto Carry Chains                                                               ; On                  ; On                  ;
+; Auto Open-Drain Pins                                                            ; On                  ; On                  ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                 ; Off                 ;
+; Auto ROM Replacement                                                            ; On                  ; On                  ;
+; Auto RAM Replacement                                                            ; On                  ; On                  ;
+; Auto DSP Block Replacement                                                      ; On                  ; On                  ;
+; Auto Shift Register Replacement                                                 ; Auto                ; Auto                ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto                ; Auto                ;
+; Auto Clock Enable Replacement                                                   ; On                  ; On                  ;
+; Strict RAM Replacement                                                          ; Off                 ; Off                 ;
+; Allow Synchronous Control Signals                                               ; On                  ; On                  ;
+; Force Use of Synchronous Clear Signals                                          ; Off                 ; Off                 ;
+; Auto Resource Sharing                                                           ; Off                 ; Off                 ;
+; Allow Any RAM Size For Recognition                                              ; Off                 ; Off                 ;
+; Allow Any ROM Size For Recognition                                              ; Off                 ; Off                 ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                 ; Off                 ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                  ; On                  ;
+; Ignore translate_off and synthesis_off directives                               ; Off                 ; Off                 ;
+; Timing-Driven Synthesis                                                         ; On                  ; On                  ;
+; Report Parameter Settings                                                       ; On                  ; On                  ;
+; Report Source Assignments                                                       ; On                  ; On                  ;
+; Report Connectivity Checks                                                      ; On                  ; On                  ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                 ; Off                 ;
+; Synchronization Register Chain Length                                           ; 3                   ; 3                   ;
+; Power Optimization During Synthesis                                             ; Normal compilation  ; Normal compilation  ;
+; HDL message level                                                               ; Level2              ; Level2              ;
+; Suppress Register Optimization Related Messages                                 ; Off                 ; Off                 ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000                ; 5000                ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000                ; 5000                ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                 ; 100                 ;
+; Clock MUX Protection                                                            ; On                  ; On                  ;
+; Auto Gated Clock Conversion                                                     ; Off                 ; Off                 ;
+; Block Design Naming                                                             ; Auto                ; Auto                ;
+; SDC constraint protection                                                       ; Off                 ; Off                 ;
+; Synthesis Effort                                                                ; Auto                ; Auto                ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                  ; On                  ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                 ; Off                 ;
+; Analysis & Synthesis Message Level                                              ; Medium              ; Medium              ;
+; Disable Register Merging Across Hierarchies                                     ; Auto                ; Auto                ;
+; Resource Aware Inference For Block RAM                                          ; On                  ; On                  ;
+; Automatic Parallel Synthesis                                                    ; On                  ; On                  ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                 ; Off                 ;
++---------------------------------------------------------------------------------+---------------------+---------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                     ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------------+---------+
+; adder.sv                         ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/adder.sv               ;         ;
+; sign_extend.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/sign_extend.sv         ;         ;
+; jump_unit.sv                     ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/jump_unit.sv           ;         ;
+; memoryAccess.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryAccess.sv        ;         ;
+; memoryController.sv              ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv    ;         ;
+; dmem_ram.sv                      ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_ram.sv            ;         ;
+; dmem_rom.sv                      ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv            ;         ;
+; imem.sv                          ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv                ;         ;
+; mux_2to1.sv                      ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/mux_2to1.sv            ;         ;
+; mux_4to1.sv                      ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/mux_4to1.sv            ;         ;
+; pc_register.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/pc_register.sv         ;         ;
+; segment_ex_mem.sv                ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_ex_mem.sv      ;         ;
+; segment_id_ex.sv                 ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_id_ex.sv       ;         ;
+; segment_if_id.sv                 ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_if_id.sv       ;         ;
+; segment_mem_wb.sv                ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_mem_wb.sv      ;         ;
+; alu.sv                           ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/alu.sv                 ;         ;
+; control_unit.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv        ;         ;
+; procesador_pipeline.sv           ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv ;         ;
+; register_file.sv                 ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/register_file.sv       ;         ;
+; dmem_seno.sv                     ; yes             ; User SystemVerilog HDL File  ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv           ;         ;
+; instructions.txt                 ; yes             ; Auto-Found File              ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/instructions.txt       ;         ;
+; seno.txt                         ; yes             ; Auto-Found File              ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/seno.txt               ;         ;
+; imageData.txt                    ; yes             ; Auto-Found File              ; /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imageData.txt          ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Estimate of Logic utilization (ALMs needed) ; 0     ;
+;                                             ;       ;
+; Combinational ALUT usage for logic          ; 0     ;
+;     -- 7 input functions                    ; 0     ;
+;     -- 6 input functions                    ; 0     ;
+;     -- 5 input functions                    ; 0     ;
+;     -- 4 input functions                    ; 0     ;
+;     -- <=3 input functions                  ; 0     ;
+;                                             ;       ;
+; Dedicated logic registers                   ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 3     ;
+;                                             ;       ;
+; Total DSP Blocks                            ; 0     ;
+;                                             ;       ;
+; Maximum fan-out node                        ; clk   ;
+; Maximum fan-out                             ; 1     ;
+; Total fan-out                               ; 3     ;
+; Average fan-out                             ; 0.50  ;
++---------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                             ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------+---------------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name  ; Entity Name         ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------+---------------------+--------------+
+; |procesador_pipeline       ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 3    ; 0            ; |procesador_pipeline ; procesador_pipeline ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_2to1:mux_pc ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; N              ; 32    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_4to1:mux_RR1 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; N              ; 4     ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_2to1:mux_RR2 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; N              ; 4     ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_4to1:mux_RR3 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; N              ; 4     ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_2to1:mux_alu ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; N              ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mux_2to1:mux_wb ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; N              ; 32    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "segment_ex_mem:ex_mem"                                                                     ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; MemRead_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------+
+; Port Connectivity Checks: "mux_4to1:mux_RR3" ;
++------+-------+----------+--------------------+
+; Port ; Type  ; Severity ; Details            ;
++------+-------+----------+--------------------+
+; D    ; Input ; Info     ; Stuck at GND       ;
++------+-------+----------+--------------------+
+
+
++--------------------------------------------+
+; Port Connectivity Checks: "adder:add_pc"   ;
++----------+-------+----------+--------------+
+; Port     ; Type  ; Severity ; Details      ;
++----------+-------+----------+--------------+
+; B[31..1] ; Input ; Info     ; Stuck at GND ;
+; B[0]     ; Input ; Info     ; Stuck at VCC ;
++----------+-------+----------+--------------+
+
+
++--------------------------------------------+
+; Port Connectivity Checks: "pc_register:pc" ;
++------+-------+----------+------------------+
+; Port ; Type  ; Severity ; Details          ;
++------+-------+----------+------------------+
+; load ; Input ; Info     ; Stuck at VCC     ;
++------+-------+----------+------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-------------------+---------------------------------+
+; Type              ; Count                           ;
++-------------------+---------------------------------+
+; boundary_port     ; 3                               ;
+;                   ;                                 ;
+; Max LUT depth     ; 0.00                            ;
+; Average LUT depth ; 0.00                            ;
++-------------------+---------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 22.1std.1 Build 917 02/14/2023 SC Lite Edition
+    Info: Processing started: Mon May 15 22:28:03 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off procesador-pipeline -c procesador-pipeline
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file adder.sv
+    Info (12023): Found entity 1: adder File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/adder.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file sign_extend.sv
+    Info (12023): Found entity 1: sign_extend File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/sign_extend.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file jump_unit.sv
+    Info (12023): Found entity 1: jump_unit File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/jump_unit.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file memoryAccess.sv
+    Info (12023): Found entity 1: memoryAccess File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryAccess.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file memoryController.sv
+    Info (12023): Found entity 1: memoryController File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file dmem_ram.sv
+    Info (12023): Found entity 1: dmem_ram File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_ram.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file dmem_rom.sv
+    Info (12023): Found entity 1: dmem_rom File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file imem.sv
+    Info (12023): Found entity 1: imem File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file mux_2to1.sv
+    Info (12023): Found entity 1: mux_2to1 File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/mux_2to1.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file mux_4to1.sv
+    Info (12023): Found entity 1: mux_4to1 File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/mux_4to1.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file pc_register.sv
+    Info (12023): Found entity 1: pc_register File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/pc_register.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file segment_ex_mem.sv
+    Info (12023): Found entity 1: segment_ex_mem File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_ex_mem.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file segment_id_ex.sv
+    Info (12023): Found entity 1: segment_id_ex File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_id_ex.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file segment_if_id.sv
+    Info (12023): Found entity 1: segment_if_id File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_if_id.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file segment_mem_wb.sv
+    Info (12023): Found entity 1: segment_mem_wb File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/segment_mem_wb.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
+    Info (12023): Found entity 1: alu File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/alu.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file control_unit.sv
+    Info (12023): Found entity 1: control_unit File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file procesador_pipeline.sv
+    Info (12023): Found entity 1: procesador_pipeline File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file register_file.sv
+    Info (12023): Found entity 1: register_file File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/register_file.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file testbench.sv
+    Info (12023): Found entity 1: testbench File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/testbench.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file memoryAccess_tb.sv
+    Info (12023): Found entity 1: memoryAccess_tb File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryAccess_tb.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file dmem_seno.sv
+    Info (12023): Found entity 1: dmem_seno File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv Line: 1
+Info (12127): Elaborating entity "procesador_pipeline" for the top level hierarchy
+Info (12128): Elaborating entity "pc_register" for hierarchy "pc_register:pc" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 39
+Warning (10036): Verilog HDL or VHDL warning at pc_register.sv(10): object "pc_temp" assigned a value but never read File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/pc_register.sv Line: 10
+Info (12128): Elaborating entity "adder" for hierarchy "adder:add_pc" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 41
+Info (12128): Elaborating entity "mux_2to1" for hierarchy "mux_2to1:mux_pc" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 43
+Info (12128): Elaborating entity "segment_if_id" for hierarchy "segment_if_id:if_id" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 49
+Info (12128): Elaborating entity "control_unit" for hierarchy "control_unit:control" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 55
+Info (10041): Inferred latch for "RegWrite" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "MemWrite" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "MemRead" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "MemToReg" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "RegSrc1[0]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "RegSrc1[1]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "RegDtn[0]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "RegDtn[1]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ImmSrc[0]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ImmSrc[1]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ALUOp[0]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ALUOp[1]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ALUOp[2]" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "ALUSrc" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "JumpCD" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "JumpCI" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "JumpI" at control_unit.sv(166) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 166
+Info (10041): Inferred latch for "RegSrc2" at control_unit.sv(128) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/control_unit.sv Line: 128
+Info (12128): Elaborating entity "mux_4to1" for hierarchy "mux_4to1:mux_RR1" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 58
+Info (12128): Elaborating entity "mux_2to1" for hierarchy "mux_2to1:mux_RR2" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 60
+Info (12128): Elaborating entity "sign_extend" for hierarchy "sign_extend:sign_extend" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 64
+Info (12128): Elaborating entity "register_file" for hierarchy "register_file:register_file" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 66
+Info (12128): Elaborating entity "segment_id_ex" for hierarchy "segment_id_ex:id_ex" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 74
+Info (12128): Elaborating entity "alu" for hierarchy "alu:alu" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 82
+Info (12128): Elaborating entity "jump_unit" for hierarchy "jump_unit:jump_unit" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 84
+Info (12128): Elaborating entity "segment_ex_mem" for hierarchy "segment_ex_mem:ex_mem" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 91
+Info (12128): Elaborating entity "memoryAccess" for hierarchy "memoryAccess:memory" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 96
+Info (12128): Elaborating entity "memoryController" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryAccess.sv Line: 9
+Info (10041): Inferred latch for "mapAddressRAM[0]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[1]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[2]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[3]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[4]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[5]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[6]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[7]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[8]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[9]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[10]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[11]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[12]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[13]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[14]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[15]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[16]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[17]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[18]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[19]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[20]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[21]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[22]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[23]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[24]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[25]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[26]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[27]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[28]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[29]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[30]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressRAM[31]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[0]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[1]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[2]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[3]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[4]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[5]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[6]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[7]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[8]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[9]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[10]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[11]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[12]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[13]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[14]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[15]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[16]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[17]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[18]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[19]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[20]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[21]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[22]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[23]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[24]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[25]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[26]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[27]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[28]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[29]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[30]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressSENO[31]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[0]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[1]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[2]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[3]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[4]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[5]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[6]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[7]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[8]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[9]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[10]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[11]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[12]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[13]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[14]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[15]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[16]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[17]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[18]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[19]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[20]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[21]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[22]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[23]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[24]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[25]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[26]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[27]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[28]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[29]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[30]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "mapAddressROM[31]" at memoryController.sv(32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 32
+Info (10041): Inferred latch for "instruction[0]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[1]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[2]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[3]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[4]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[5]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[6]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[7]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[8]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[9]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[10]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[11]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[12]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[13]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[14]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[15]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[16]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[17]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[18]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[19]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[20]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[21]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[22]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[23]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[24]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[25]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[26]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[27]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[28]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[29]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[30]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "instruction[31]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[0]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[1]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[2]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[3]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[4]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[5]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[6]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[7]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[8]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[9]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[10]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[11]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[12]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[13]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[14]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[15]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[16]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[17]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[18]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[19]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[20]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[21]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[22]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[23]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[24]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[25]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[26]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[27]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[28]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[29]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[30]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (10041): Inferred latch for "mapAddressInstructions[31]" at memoryController.sv(17) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 17
+Info (12128): Elaborating entity "dmem_ram" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_ram:ram" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 8
+Warning (10175): Verilog HDL warning at dmem_ram.sv(7): ignoring unsupported system task File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_ram.sv Line: 7
+Warning (10230): Verilog HDL assignment warning at dmem_ram.sv(23): truncated value with size 63 to match size of target (32) File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_ram.sv Line: 23
+Info (12128): Elaborating entity "dmem_rom" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_rom:rom" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 9
+Warning (10850): Verilog HDL warning at dmem_rom.sv(10): number of words (90000) in memory file does not match the number of elements in the address range [0:90000] File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv Line: 10
+Warning (10030): Net "dmem_ROM.data_a" at dmem_rom.sv(5) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv Line: 5
+Warning (10030): Net "dmem_ROM.waddr_a" at dmem_rom.sv(5) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv Line: 5
+Warning (10030): Net "dmem_ROM.we_a" at dmem_rom.sv(5) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_rom.sv Line: 5
+Info (12128): Elaborating entity "imem" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|imem:imem_rom" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 10
+Warning (10850): Verilog HDL warning at imem.sv(9): number of words (163) in memory file does not match the number of elements in the address range [0:399] File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv Line: 9
+Warning (10030): Net "imem_ROM.data_a" at imem.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv Line: 4
+Warning (10030): Net "imem_ROM.waddr_a" at imem.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv Line: 4
+Warning (10030): Net "imem_ROM.we_a" at imem.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/imem.sv Line: 4
+Info (12128): Elaborating entity "dmem_seno" for hierarchy "memoryAccess:memory|memoryController:memoryControllerUnit|dmem_seno:seno" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/memoryController.sv Line: 11
+Warning (10850): Verilog HDL warning at dmem_seno.sv(9): number of words (300) in memory file does not match the number of elements in the address range [0:8099] File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv Line: 9
+Warning (10030): Net "dmem_seno.data_a" at dmem_seno.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv Line: 4
+Warning (10030): Net "dmem_seno.waddr_a" at dmem_seno.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv Line: 4
+Warning (10030): Net "dmem_seno.we_a" at dmem_seno.sv(4) has no driver or initial value, using a default initial value '0' File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/dmem_seno.sv Line: 4
+Info (12128): Elaborating entity "segment_mem_wb" for hierarchy "segment_mem_wb:mem_wb" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 102
+Info (144001): Generated suppressed messages file /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/output_files/procesador-pipeline.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 3 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "clk" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 1
+    Warning (15610): No output dependent on input pin "rst" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 1
+    Warning (15610): No output dependent on input pin "switchStart" File: /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/procesador_pipeline.sv Line: 1
+Info (21057): Implemented 3 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 0 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 20 warnings
+    Info: Peak virtual memory: 1033 megabytes
+    Info: Processing ended: Mon May 15 22:28:28 2023
+    Info: Elapsed time: 00:00:25
+    Info: Total CPU time (on all processors): 00:00:42
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in /home/guillen/Documents/GitHub/lguillen2_computer-architecture_1_2023/procesador-pipeline/output_files/procesador-pipeline.map.smsg.
+
+

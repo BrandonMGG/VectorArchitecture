@@ -1,0 +1,14 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/memoryAccess.sv}
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/memoryController.sv}
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/dmem_ram.sv}
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/memoryAccess_tb.sv}
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/dmem_rom.sv}
+vlog -sv -work work +incdir+C:/arqui-1/procesador-pipeline {C:/arqui-1/procesador-pipeline/imem.sv}
+

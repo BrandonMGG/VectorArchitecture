@@ -1,0 +1,38 @@
+# Quartus project files
+*.qpf
+*.qsf
+*.qws
+*.qws.*
+*.qdb
+*.bak
+*.sopcinfo
+*.sopc
+*.done
+*.rpt
+*.summary
+db/
+incremental_db/
+simulation/
+output_files/
+*.sopcinfo/
+*.sopc/
+*.ipx/
+*.pin
+*.sof
+*.pof
+
+# Quartus system console files
+*.tcl
+*.log
+*.smsg
+
+# ModelSim files
+*.mti
+*.do
+*.log
+work/
+vsim.wlf
+
+# Other files
+*.swp
+.DS_Store

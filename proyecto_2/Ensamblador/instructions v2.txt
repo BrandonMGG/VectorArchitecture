@@ -1,0 +1,119 @@
+;consideraciones iniciales:
+;dimension de imagen 300x300 = 90000
+;se deben cargar las direcciones de referencia de los datos de entrada
+;tomando en cuenta los siguientes rangos:
+;ram de sin(2*pi*y/Lx)*100: 0-301
+;los indices 300 y 301 tienen los valores de referencia 90000 y 180000
+;ram de datos de entrada: 302-90301     [tam 90 000]
+;ram de datos de salida: 90302-180301   [tam 90 000]
+;inicio: 180302
+
+switch:
+    movi r0, 301         ; direccion en lut para valor 180 000
+    crg r1, r0          ; r1 tiene el valor 180 000
+    movi r0, 302         ;offset debido a sine lut
+    sum r1, r1, r0      ; r1 tiene direccion del switch 180 302
+    crg r2, r1          ; busco el valor seteado en r1
+    movi r0, 1   
+    cmp r2, r0          ; si es igual a 1 inicia el programa
+    sig start        
+    sali switch
+;guardar en la dirección de memoria de rs1 con los contenidos de rs2 
+start: 
+    movi r1, 0           ; Inicializar valor de Ax=Ay=5
+    movi r3, 302         ; referencia a primer dato de pixel en memoria[302-90301]
+
+imagen_loop:            ; loop donde se hace la secuencia de transformaciones a una imagen
+    movi r0, 25          ; valor arbitrario para una hacer una cantidad de transformaciones Ax=Ay= 5 10 15 20
+    cmp r1, r0          ; se completaron las iteraciones?
+    sig fin_prog        ; salto de igualdad para finalizar prog
+    movi r0, 5
+    sum r1, r1, r0      ; actualiza Ax = Ay += 5
+    movi r10, 0         ; contador de 90 000 pixeles
+    movi r0, 300             ; referencia en lut para valor 90 000 
+    crg r2, r0              ; tiene valor 90 000 inicialmente guardado en direccion 300 
+    movi r0, 302
+    sum r2, r2, r0      ; direccion relativa a la memoria de salida[90302-180301]
+    sali loop_trans     ; salto incondicional
+
+loop_trans:                 ; se realiza el calculo de la nueva ubicacion de un pixel para la imagen de salida 
+    movi r0, 300
+    crg r11, r0             ; r11 tiene valor 90 000 inicialmente guardado en direccion 300 
+    cmp r10, r11            ; revisa si acabo la transformacion
+    sig feedback_write      ; si acabo regreso a loop que genera imagenes
+
+    ;calcular x, y actuales
+    movi r0, 300            ; r0 = width
+    mod r4, r10, r0         ; posicion a lo ancho x     siempre sera index de lut
+    div r5, r10, r0         ; posicion a lo alto y      siempre sera index de lut
+
+    ; calcular xnew 
+    crg r6, r5              ; cargar resultado de sine_lut[r5] escalado por 100 ***r2 se debe actulizar
+    mul r6, r6, r1          ; operar Ax*sin(2*pi*y/Lx)*100 | r1 * r6
+    movi r0, 100             
+    div r6, r6, r0          ; dividir por valor escalado 100
+    sum r6, r6, r4          ; operar x' = x + Ax*sin(2*pi*y/Lx) | r6 = r4 + r6
+    movi r0, 300
+    mod r12, r6, r0         ; calcular xnew = r12 = r6 % width
+
+    ;calcular ynew
+    crg r7, r4              ; cargar resultado de sin(2*pi*x/Ly) escalado por 100
+    mul r7, r7, r1          ; operar Ay*sin(2*pi*x/Ly)*100
+    movi r0, 100
+    div r7, r7, r0          ; dividir por valor escalado
+    sum r7, r7, r5          ; operar r7 = y + Ay*sin(2*pi*x/Ly)
+    movi r0, 300
+    mod r13, r7, r0         ; calcular ynew = r7 % height
+
+    ;calcular indice del valor que se debe mover
+    mul r4, r13, r0         ; operar r4 = ynew*width
+    sum r4, r4, r12         ; operar r4 = ynew*width + xnew
+
+    movi r11, 302           ; cargar valor de referencia a memoria de datos 
+    sum r11, r11, r4        ; sumo el uevo indice para luego buscar mem[302+ynew*width + xnew]
+    crg r8, r11             ; traer valor del pixel con el indice nuevo desde memoria
+    
+    esc r2, r8              ; escribir nuevo valor en direccion actual de mem salida
+    movi r0, 1
+    sum r2, r2, r0          ; actualiza la direccion de mem salida
+
+    out r8
+    ;actualizar contador de loop
+    movi r0, 1
+    sum r10, r10, r0
+    sali loop_trans
+
+feedback_write:
+    movi r0, 302         ; direccion de inicio de memoria de entrada (hacia donde debo pasar datos de la imagen nueva)
+    movi r1, 1   
+    movi r2, 300         ; referencia en lut para valor 90 000
+    crg r3, r2          ; trae valor 90 000 inicialmente guardado en direccion 300 
+    sum r4, r3, r0      ; suma offset para llegar al inicio de la memoria de salida [90302-180301]
+    movi r0, 301         ; en 301 esta guardado 180 000
+    crg r3, r0          ; r3 = 180 000
+    sum r3, r3, r0      ; ya estoy ubicado en 180301
+
+bypass_data_out:
+    cmp r4, r3          ; comparar si ya recorri toda la memoria 90302+90000 = 180302
+    sig imagen_loop     ; si recorri entonces regreso para hacer siguiente transformacion
+    crg r5, r4          ; cargo el valor del pixel en la direccion actual de data out
+    movi r0, 302
+    esc r0, r5          ; escribir el valor del pixel de data out en datos de entrada
+                        ; actualizar indices
+    movi r6, 1
+    sum r0, r0, r6      ; actualizar indice data in + 1
+    sum r4, r4, r6      ; actualizar indice data out + 1
+    sali bypass_data_out   
+
+fin_prog:
+    movi r0, 0
+    movi r1, 0          ; Inicializar valor de Ax=Ay
+    movi r4, 0          ; index
+    movi r5, 0          ; direccion de sine LUT en memoria
+    movi r10, 0         ; contador para loop de transformacion
+    movi r11, 0         ; referencia a primer dato de pixel en memoria
+
+
+
+
+    

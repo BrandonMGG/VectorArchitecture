@@ -187,7 +187,7 @@ module CPU #(parameter WIDTH = 24, parameter REGNUM = 16,
 	//____________________________/  Memory \_______________			
 	//                            \_________/	
 	
-	topMemory #(WIDTH, INSTRUCTIONWIDTH,8) 
+	topMemory #(WIDTH, INSTRUCTIONWIDTH,24) 
 		Memory(clock, writeDataEnableMM, startIO, // --------------------------------------- Input. 1 bit
 				 MemoryDataAddress, MemoryDataToWrite, // ------------------------------- INPUT [35:0]. PCF(a1), MemoryDataAddress(a2), MemoryDataToWrite(wd)
 				 // ------------------------------------------------------------ output. [23:0]. InstructionF(rd1)

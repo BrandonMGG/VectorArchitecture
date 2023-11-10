@@ -167,8 +167,8 @@ def compile_code(file_path, mem_path):
 
 
 if __name__ == "__main__":
-    file_path = "/home/guillen/Documents/GitHub/VectorArchitecture/proyecto_2/Ensamblador/load-store-asm.txt"
-    mem_path  = "/home/guillen/Documents/GitHub/VectorArchitecture/proyecto_2/Procesador/instr-algo.txt"
+    file_path = "proyecto_2/Ensamblador/base.asm"
+    mem_path  = "proyecto_2/Procesador/instr-algo.txt"
     compile_code(file_path, mem_path)
 
     

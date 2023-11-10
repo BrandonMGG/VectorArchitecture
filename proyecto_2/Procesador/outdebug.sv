@@ -103,12 +103,17 @@ module outdebug();
 //	outputWB );
 
 	logic [23:0] i;
-	logic [15:0] j;
+	//logic [15:0] j;
 	
-	integer OutFile;
+	
+	always begin
+	
+		#10 clock = ~clock; i+=1; // medio ciclo de reloj equivale a una unidad
+		
+	end
 	initial begin
 		startIO = 0;
-		OutFile = $fopen("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//outfile.txt");
+		//OutFile = $fopen("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//outfile.txt");
 
 		reset = 1;
 		clock = 0;
@@ -117,27 +122,29 @@ module outdebug();
 		#10;
 		clock = 0;
 		reset = 0;
+		i = 0;
 		#10;
 		
-		i = 0;
-		j = 0;
-		while(i<1000) begin // 90000 representa el total de valores que son calculados.
-			j = j + 1;
-			if (j == 10) begin
-				startIO = 1;   
-			end
-			clock = 1;
-			#10
-			if(outFlag) begin 
-				// fdisplay: Escribe en archivo outFile.txt lo que se encuentra en out.
-				$fdisplay(OutFile,"%b", out);
-				//$display ($sformatf("Out:  %d",out));
-				i+=1;
-			end
-					
-			clock = 0;
-			#10;
-		end
+		
+		//j = 0;
+//		while(i<10000) begin // 90000 representa el total de valores que son calculados.
+////			j = j + 1;
+////			if (j == 300) begin
+////				startIO = 1;   
+////			end
+//			
+//			if(outFlag) begin 
+//				// fdisplay: Escribe en archivo outFile.txt lo que se encuentra en out.
+//				//$fdisplay(OutFile,"%b", out);
+//				$display ($sformatf("Out:  %d",out));
+//				i+=1;
+//			end
+//					
+//		end
+		
+		#9620600;
+		startIO = 1;
+		
 	end
 	
 endmodule 

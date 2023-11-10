@@ -118,8 +118,8 @@ module test_cpu_mem();
 		j = 0;
 		while(i<32) begin
 			j = j + 1;
-			if (j == 30) begin
-				  startIO = 1; 
+			if (j == 10) begin
+				startIO = 1;   
 			end
 			clock = 1;
 			#10
@@ -143,10 +143,10 @@ module test_cpu_mem();
 				i+=1;
 				
 			end
+			
 			clock = 0;
 			#10;
 		end
-		
 	end
 	
 endmodule 

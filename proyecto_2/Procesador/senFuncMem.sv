@@ -8,7 +8,7 @@ module senFuncMem #(parameter WIDTH = 24, parameter AMOUNT = 302)
 		logic signed [WIDTH-1:0] RAM2 [0:AMOUNT-1]; // [23:0] name [0:89999]-> Datos de entrada
 	
 		initial
-			$readmemb("/home/guillen/Documents/GitHub/VectorArchitecture/proyecto_2/Procesador/mem2.txt",RAM2);					
+			$readmemb("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//mem2.txt",RAM2);					
 				
 	
 		// READ: Salva en rd para enviarlo posteriormente al puerto de lectura.

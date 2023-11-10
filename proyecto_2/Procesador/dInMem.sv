@@ -15,7 +15,7 @@ module dInMem #(parameter WIDTH = 24, parameter AMOUNT = 90000,parameter PIXEL =
 			// "G://My Drive//TEC//2023 Semestre I//Arquitectura de Computadores I//Proyectos//Proyectoll//DesarrolloProyecto//jpena_computer_architecture_1_2023//proyecto_2//Procesador//mem3.txt"
 			//	"C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//mem1.txt"	
 			
-			$readmemb("/home/guillen/Documents/GitHub/VectorArchitecture/proyecto_2/Procesador/mem3.txt"	,RAM3);					
+			$readmemb("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//mem3.txt"	,RAM3);					
 
 		// WRITE
 //		always_ff @(posedge clk) begin    

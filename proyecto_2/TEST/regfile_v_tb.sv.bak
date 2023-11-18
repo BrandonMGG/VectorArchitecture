@@ -1,0 +1,82 @@
+`timescale 1ns/1ns
+
+module regfile_v_tb;
+
+  // Parámetros del módulo
+  localparam WIDTH = 24;
+  localparam REGNUM = 16;
+  localparam ADDRESSWIDTH = 4;
+  localparam VECTOR_WIDTH = 8;
+
+  // Definición de señales
+  reg clk;
+  reg we3;
+  reg [VECTOR_WIDTH-1:0][ADDRESSWIDTH-1:0] ra1, ra2, wa3;
+  reg [WIDTH-1:0] wd3;
+  reg [ADDRESSWIDTH-1:0] idx;
+  wire [VECTOR_WIDTH-1:0][WIDTH-1:0] rd1_vec, rd2_vec;
+  wire [WIDTH-1:0] rd1_scl, rd2_scl;
+
+  // Instancia del módulo regfile_v
+  regfile_v #(
+    .WIDTH(WIDTH),
+    .REGNUM(REGNUM),
+    .ADDRESSWIDTH(ADDRESSWIDTH),
+    .VECTOR_WIDTH(VECTOR_WIDTH)
+  ) dut (
+    .clk(clk),
+    .we3(we3),
+    .ra1(ra1),
+    .ra2(ra2),
+    .wa3(wa3),
+    .wd3(wd3),
+    .idx(idx),
+    .rd1_vec(rd1_vec),
+    .rd2_vec(rd2_vec),
+    .rd1_scl(rd1_scl),
+    .rd2_scl(rd2_scl)
+  );
+
+  // Generación de pulsos de reloj
+  initial begin
+    clk = 0;
+    forever #5 clk = ~clk;
+  end
+
+  // Testbench
+  initial begin
+    // Configuración inicial
+    we3 = 1;
+    wa3 = 0;
+    wd3 = 8'b10101010;
+    ra1 = 4'b0100; // Registro PC
+    ra2 = 4'b0001; // Registro 1
+    idx = 3'b001;
+
+    // Escritura en el registro 0 (wa3=0)
+    #10 we3 = 1;
+    #10 we3 = 0;
+
+    // Lectura del PC (ra1=PC) y del Registro 1 (ra2=1)
+    #10;
+    assert(rd1_vec === 8'b10101010) report "Error: Lectura incorrecta de rd1_vec" severity error;
+    assert(rd1_scl === 1'b0) report "Error: Lectura incorrecta de rd1_scl" severity error;
+    assert(rd2_vec === 8'b10101010) report "Error: Lectura incorrecta de rd2_vec" severity error;
+    assert(rd2_scl === 1'b0) report "Error: Lectura incorrecta de rd2_scl" severity error;
+
+    // Escritura en el registro 1 (wa3=1)
+    #10 we3 = 1;
+    #10 we3 = 0;
+
+    // Lectura del PC (ra1=PC) y del Registro 1 (ra2=1) con índice
+    #10;
+    assert(rd1_vec === 8'b10101010) report "Error: Lectura incorrecta de rd1_vec" severity error;
+    assert(rd1_scl === 1'b0) report "Error: Lectura incorrecta de rd1_scl" severity error;
+    assert(rd2_vec === 8'b10101010) report "Error: Lectura incorrecta de rd2_vec" severity error;
+    assert(rd2_scl === 1'b1) report "Error: Lectura incorrecta de rd2_scl" severity error;
+
+    // Fin de la simulación
+    #10 $finish;
+  end
+
+endmodule

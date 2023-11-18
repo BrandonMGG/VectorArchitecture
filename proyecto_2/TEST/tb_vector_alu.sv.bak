@@ -1,0 +1,61 @@
+`timescale 1ns/1ps
+
+module tb_vector_alu;
+
+  // Parameters
+  parameter WIDTH = 8;
+  parameter VECTOR_WIDTH = 4;
+
+  // Signals
+  logic signed [WIDTH-1:0] operand1 [VECTOR_WIDTH-1:0];
+  logic signed [WIDTH-1:0] operand2 [VECTOR_WIDTH-1:0];
+  logic [3:0] opcode;
+  logic signed [WIDTH-1:0] result [VECTOR_WIDTH-1:0];
+  logic zero_flag, carry_flag, overflow_flag, sign_flag;
+
+  // Clock generation
+  reg clk = 0;
+  always #5 clk = ~clk;
+
+  // Instantiate the vector_alu module
+  vector_alu #(
+    .WIDTH(WIDTH),
+    .VECTOR_WIDTH(VECTOR_WIDTH)
+  ) uut (
+    .clk(clk),
+    .operand1(operand1),
+    .operand2(operand2),
+    .opcode(opcode),
+    .result(result),
+    .zero_flag(zero_flag),
+    .carry_flag(carry_flag),
+    .overflow_flag(overflow_flag),
+    .sign_flag(sign_flag)
+  );
+
+  // Test stimulus
+  initial begin
+    // Initialize inputs
+    operand1 = {8, -5, 3, -2}; // Example operands
+    operand2 = {2, 7, -1, 4};  // Example operands
+    opcode = 4'b0000;          // Addition
+
+    // Apply stimulus
+    #10 opcode = 4'b0001;      // Subtraction
+    #10 opcode = 4'b0010;      // Multiplication
+    #10 opcode = 4'b0011;      // Division
+    // Add more test cases as needed...
+
+    // Monitor and display results
+    #10;
+    $display("Result: %p", result);
+    $display("Zero Flag: %b", zero_flag);
+    $display("Carry Flag: %b", carry_flag);
+    $display("Overflow Flag: %b", overflow_flag);
+    $display("Sign Flag: %b", sign_flag);
+
+    // Stop simulation
+    $stop;
+  end
+
+endmodule

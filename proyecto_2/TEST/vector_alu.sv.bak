@@ -1,0 +1,41 @@
+module vector_alu #(
+    parameter WIDTH = 8,
+    parameter VECTOR_WIDTH = 4
+)
+(
+    input logic signed [WIDTH-1:0] operand1 [VECTOR_WIDTH-1:0],
+    input logic signed [WIDTH-1:0] operand2 [VECTOR_WIDTH-1:0],
+    input logic [3:0] opcode,  // Assuming a 4-bit opcode for simplicity
+    output logic signed [WIDTH-1:0] result [VECTOR_WIDTH-1:0],
+    output logic zero_flag,
+    output logic carry_flag,
+    output logic overflow_flag,
+    output logic sign_flag
+);
+
+    always_comb begin
+        zero_flag = 1'b1;
+        carry_flag = 1'b0;
+        overflow_flag = 1'b0;
+        sign_flag = result[WIDTH-1];
+
+        // Vectorial ALU operations
+        case (opcode)
+            4'b0000: result = operand1 + operand2;  // Addition
+            4'b0001: result = operand1 - operand2;  // Subtraction
+            4'b0010: result = operand1 * operand2;  // Multiplication
+            4'b0011: result = operand1 / operand2;  // Division
+            // Add more operations as needed...
+
+            default: result = 0;
+        endcase
+
+        // Check flags based on the result
+        if (result == 0) zero_flag = 1'b1;
+        if (result < operand1) carry_flag = 1'b1;  // Assuming unsigned comparison
+        if ((operand1 > 0 && operand2 > 0 && result < 0) || (operand1 < 0 && operand2 < 0 && result > 0))
+            overflow_flag = 1'b1;
+
+        // Add more flag conditions based on your specific requirements
+    end
+endmodule

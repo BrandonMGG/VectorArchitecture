@@ -1,0 +1,63 @@
+`timescale 1ns/1ns
+
+module topMemory_vtb;
+
+  // Parameters
+  parameter WIDTH = 24;
+  parameter VECTOR_WIDTH = 8;
+  parameter PIXEL = 24;
+
+  // Signals
+  reg clk;
+  reg we;
+  reg startIO;
+  reg [WIDTH-1:0] a2;
+  reg [VECTOR_WIDTH-1:0][WIDTH-1:0] wd_v;
+  wire [WIDTH-1:0] rd2;
+  wire [VECTOR_WIDTH-1:0][WIDTH-1:0] rdv2;
+
+  // Instantiate the module
+  topMemory_v #(WIDTH, WIDTH, PIXEL, VECTOR_WIDTH) uut (
+    .clk(clk),
+    .we(we),
+    .startIO(startIO),
+    .a2(a2),
+    .wd_v(wd_v),
+    .rd2(rd2),
+    .rdv2(rdv2)
+  );
+
+  // Clock generation
+  always begin
+    #5 clk = ~clk;
+  end
+
+  // Initial block
+  initial begin
+    clk = 0;
+    we = 0;
+    startIO = 0;
+    a2 = 0;
+    wd_v = 0;
+
+    // Test Case 1: Read data from instruction segment
+    we = 0;
+    startIO = 1;
+    a2 = 24; // Assuming instruction segment address
+    #10;
+    startIO = 0;
+
+    // Test Case 2: Write data to data segment
+    we = 1;
+    a2 = 100; // Assuming data segment address
+    wd_v = 8'hFF; // Data to be written
+    #10;
+    we = 0;
+
+    // Add more test cases as needed
+
+    #100;
+    $stop;
+  end
+
+endmodule

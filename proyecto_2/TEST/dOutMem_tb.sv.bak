@@ -1,0 +1,61 @@
+module dOutMem_tb;
+
+  // Parámetros del módulo
+  parameter WIDTH = 24;
+  parameter DEPTH = 10000;
+  parameter PIXEL = 8;
+
+  // Señales de la prueba
+  logic startIO;
+  logic clk;
+  logic we;
+  logic [WIDTH-1:0] address;
+  logic [WIDTH-1:0] wd;
+  logic [WIDTH-1:0] rd;
+
+  // Instancia del módulo
+  dOutMem #(WIDTH, DEPTH, PIXEL) uut (
+    .startIO(startIO),
+    .clk(clk),
+    .we(we),
+    .address(address),
+    .wd(wd),
+    .rd(rd)
+  );
+
+  // Generador de estímulo
+  initial begin
+    // Inicialización de señales
+    startIO = 1;
+    clk = 0;
+    we = 0;
+    address = 0;
+    wd = 0;
+
+    // Ciclo de reloj
+    forever #5 clk = ~clk;
+
+    // Escritura y lectura de memoria
+    // Escritura de datos en la dirección 24
+    #10;
+    startIO = 0;
+    we = 1;
+    address = 24;
+    wd = 24'hABCDEF;
+    #10;
+    we = 0;
+
+    // Lectura de datos en la dirección 24
+    #10;
+    startIO = 1;
+    we = 0;
+    address = 24;
+    #10;
+    $display("Lectura en la dirección 24: %h", rd);
+
+    // Terminar la simulación
+    #10;
+    $finish;
+  end
+
+endmodule

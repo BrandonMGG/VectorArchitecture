@@ -167,7 +167,7 @@ def compile_code(file_path, mem_path):
 
 
 if __name__ == "__main__":
-    file_path = "proyecto_2/Ensamblador/circle.asm"
+    file_path = "proyecto_2/Ensamblador/square.asm"
     mem_path  = "proyecto_2/Procesador/instr-algo.txt"
     compile_code(file_path, mem_path)
 

@@ -1,0 +1,39 @@
+switch:
+    movi r2, 1         ; busco el valor seteado en r1
+    movi r0, 1   
+    cmp r2, r0          ; si es igual a 1 inicia el programa
+    sig start        
+    sali switch
+;Probar las instrucciones basicas de la micro-arquitectura
+start: 
+    movi r3, 0
+    movi r1, 2          
+    movi r2, 5         
+    sum r3,r1,r2 
+    out r3  ;7
+	
+    movi r0, 0 ;i
+    movi r1, 5 ;j
+    movi r2, 1 ;cte
+    movi r3, 0 ;result
+
+while_init:
+    cmp r0,r1
+    sig while_end
+	    sum r3, r0, r2 ;result = i + cte
+	    out r3         ;out result
+	    sum r0, r0, r2 ;i = i + cte
+	    movi r3,0	   ;result = 0
+	    sali while_init
+while_end:
+    movi r5, 10
+
+
+fin_prog:
+    movi r0, 0
+    movi r1, 0          ; 
+    movi r4, 0          ; 
+    movi r5, 0          ; 
+    movi r10, 0         ; 
+    movi r11, 0         ; 
+    

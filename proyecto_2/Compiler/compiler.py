@@ -1,4 +1,5 @@
 import re
+import os
 
 # Diccionario de registros: mapea los nombres de los registros a sus valores correspondientes
 # Los nombres de los registros están en minúsculas y van de r0 a r15
@@ -22,6 +23,26 @@ REGISTERS = {
     "r15": 15
 }
 
+
+VREGISTERS = {
+    "vr0": 0,
+    "vr1": 1,
+    "vr2": 2,
+    "vr3": 3,
+    "vr4": 4,
+    "vr5": 5,
+    "vr6": 6,
+    "vr7": 7,
+    "vr8": 8,
+    "vr9": 9,
+    "vr10": 10,
+    "vr11": 11,
+    "vr12": 12,
+    "vr13": 13,
+    "vr14": 14,
+    "vr15": 15
+}
+
 # Diccionario de instrucciones: mapea los códigos de operación (OP) de las instrucciones y sus categorías
 # Los nombres de las instrucciones están en minúsculas
 INSTR = {
@@ -40,7 +61,14 @@ INSTR = {
     "sr":       {"OP": 12,  "category": "BR"},      # Salto a registro incondicional
     "slm":      {"OP": 13,  "category": "BI"},      # Salto si menor que a Label
     "mod":      {"OP": 14,  "category": "ART"},     # Modulo
-    "sali":     {"OP": 15,  "category": "BI"}       # Salto a Label incondicional
+    "sali":     {"OP": 15,  "category": "BI"},       # Salto a Label incondicional
+    "vsum":     {"OP": 5,   "category": "VART", "optype": 1},
+    "vres":     {"OP": 6,   "category": "VART", "optype": 1},
+    "vmul":     {"OP": 8,   "category": "VART", "optype": 1},
+    "vcmp":     {"OP": 10,  "category": "VCMP", "optype": 1},
+    "vmov":     {"OP": 3,   "category": "VMOV", "optype": 1},
+    "vcrg":     {"OP": 7,   "category": "VLDW", "optype": 1},
+    "vesc":     {"OP": 1,   "category": "VSTW", "optype": 1}
 }
 
 # Esta función busca las etiquetas en el texto y crea un diccionario con las etiquetas y sus índices de línea correspondientes.
@@ -134,6 +162,34 @@ def compile_code(file_path, mem_path):
             elif (category == "MOV"):
                 for r in params:
                     result += "R{0}({0:04b})".format(REGISTERS[r])
+            # Aritmética Vectorial
+            elif (category == "VART"):
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+            
+            elif (category == "VCMP"):
+                result += "('0000')"
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+            
+            elif (category == "VMOV"):
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(0000000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+
+            elif (category == "VLDW"):
+                for r in params:
+                    result += "R{0}({0:04b})".format(VREGISTERS[r])
+                result += '(0000000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+
+            elif (category == "VSTW"):
+                result += "('0000')"
+                for r in params:
+                    result += "R{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+
 
             print(result)
 
@@ -167,8 +223,15 @@ def compile_code(file_path, mem_path):
 
 
 if __name__ == "__main__":
-    file_path = "proyecto_2/Ensamblador/square.asm"
-    mem_path  = "proyecto_2/Procesador/instr-algo.txt"
+    #file_path = "proyecto_2/Ensamblador/square.asm"
+    #mem_path  = "proyecto_2/Procesador/instr-algo.txt"
+
+    file_dir = os.path.dirname(os.path.realpath('__file__'))
+    print(file_dir)
+    file_path = '..\Ensamblador\\base.asm'
+    file_path = os.path.join(file_dir, file_path)
+    print(file_path)
+    mem_path  = "..\Procesador\instr-algo.txt"
     compile_code(file_path, mem_path)
 
     

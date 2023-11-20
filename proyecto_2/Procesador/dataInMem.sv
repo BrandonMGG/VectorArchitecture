@@ -8,7 +8,8 @@ module dataInMem #(parameter WIDTH = 24, parameter DEPTH = 24)
 		logic [WIDTH-1:0] ROM2 [0:DEPTH-1];
 	
 		initial
-			$readmemh("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//colors-mem.txt",ROM2);					
+		//"C://Users//HP//Desktop//TEC//II-2023//Arquitectura de computadores II//VectorArchitecture//proyecto_2//Procesador//"
+			$readmemh("C://Users//HP//Desktop//TEC//II-2023//Arquitectura de computadores II//VectorArchitecture//proyecto_2//Procesador//colors-mem.txt",ROM2);					
 				
 	
 		// READ

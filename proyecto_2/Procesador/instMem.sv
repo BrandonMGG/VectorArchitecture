@@ -11,7 +11,7 @@ module instMem #(parameter WIDTH = 24, parameter AMOUNT = 256)
 		/*
 		"C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//mem1.txt"
 		*/
-			$readmemb("C://Users//HP//Desktop//TEC//I-2023//Arqui-I//Repo//jpena_computer_architecture_1_2023//proyecto_2//Procesador//instr-algo.txt",ROM1);					
+			$readmemb("C://Users//HP//Desktop//TEC//II-2023//Arquitectura de computadores II//VectorArchitecture//proyecto_2//Procesador//instr-algo.txt",ROM1);					
 				
 	
 		// READ: Salva en rd para enviarlo posteriormente al puerto de lectura.

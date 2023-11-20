@@ -13,8 +13,8 @@ module dOutMem #(parameter WIDTH = 24, parameter DEPTH = 10000,parameter PIXEL =
 		logic  [WIDTH-1:0] addr;
 		
 		always@(startIO) 
-			// "C:/Users/HP/Desktop/TEC/I-2023/Arqui-I/Repo/jpena_computer_architecture_1_2023/proyecto_2/Procesador/mem4.txt"
-			$writememh("C:/Users/HP/Desktop/TEC/I-2023/Arqui-I/Repo/jpena_computer_architecture_1_2023/proyecto_2/Procesador/dataOut.txt",RAM1);					
+			// "C://Users//HP//Desktop//TEC//II-2023//Arquitectura de computadores II//VectorArchitecture//proyecto_2//Procesador//mem4.txt"
+			$writememh("C://Users//HP//Desktop//TEC//II-2023//Arquitectura de computadores II//VectorArchitecture//proyecto_2//Procesador//dataOut.txt",RAM1);					
 				
 	
 		// WRITE

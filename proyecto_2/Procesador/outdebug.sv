@@ -142,7 +142,7 @@ module outdebug();
 //					
 //		end
 		
-		#9620600;
+		#10620600;
 		startIO = 1;
 		
 	end

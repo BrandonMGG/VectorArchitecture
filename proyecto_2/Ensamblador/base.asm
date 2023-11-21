@@ -50,4 +50,13 @@ end:
     res r2, r2, r4
     esc r2, r6
     movi r0, 0
+
+vectorial:
+    vmov vr2[2], r2
+    vsum vr15, vr0, vr3
+    vres vr0, vr15, vr5
+    vmul vr15,vr14, vr5
+    vcmp vr0, vr15
+    vcrg vr1, vr10
+    vesc vr8, vr4
     

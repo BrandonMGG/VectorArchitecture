@@ -1,4 +1,6 @@
 import re
+import os
+import pathlib
 
 # Diccionario de registros: mapea los nombres de los registros a sus valores correspondientes
 # Los nombres de los registros están en minúsculas y van de r0 a r15
@@ -22,6 +24,26 @@ REGISTERS = {
     "r15": 15
 }
 
+
+VREGISTERS = {
+    "vr0": 0,
+    "vr1": 1,
+    "vr2": 2,
+    "vr3": 3,
+    "vr4": 4,
+    "vr5": 5,
+    "vr6": 6,
+    "vr7": 7,
+    "vr8": 8,
+    "vr9": 9,
+    "vr10": 10,
+    "vr11": 11,
+    "vr12": 12,
+    "vr13": 13,
+    "vr14": 14,
+    "vr15": 15
+}
+
 # Diccionario de instrucciones: mapea los códigos de operación (OP) de las instrucciones y sus categorías
 # Los nombres de las instrucciones están en minúsculas
 INSTR = {
@@ -40,7 +62,15 @@ INSTR = {
     "sr":       {"OP": 12,  "category": "BR"},      # Salto a registro incondicional
     "slm":      {"OP": 13,  "category": "BI"},      # Salto si menor que a Label
     "mod":      {"OP": 14,  "category": "ART"},     # Modulo
-    "sali":     {"OP": 15,  "category": "BI"}       # Salto a Label incondicional
+    "sali":     {"OP": 15,  "category": "BI"},       # Salto a Label incondicional
+    "vsum":     {"OP": 5,   "category": "VART", "vecEsc": 2},
+    "vres":     {"OP": 6,   "category": "VART", "vecEsc": 2},
+    "vmul":     {"OP": 8,   "category": "VART", "vecEsc": 2},
+    "vcmp":     {"OP": 10,  "category": "VCMP", "vecEsc": 2},
+    "vmov":     {"OP": 3,   "category": "VMOV", "vecEsc": 3},
+    "vcrg":     {"OP": 7,   "category": "VLDW", "vecEsc": 2},
+    "vesc":     {"OP": 1,   "category": "VSTW", "vecEsc": 2},
+    "vbrc":     {"OP": 2,   "category": "VBRC", "vecEsc": 3}
 }
 
 # Esta función busca las etiquetas en el texto y crea un diccionario con las etiquetas y sus índices de línea correspondientes.
@@ -70,6 +100,7 @@ def cleanText(text):
         line = l.split(";")[0]  # Elimina los comentarios, identificados por el carácter ";"
         line = line.replace("\t", " ")  # Reemplaza las tabulaciones por espacios en blanco
         line = line.strip()  # Elimina los espacios en blanco al inicio y final de la línea
+        line = line.lower()  # Pasa todo a minusculas
         if line == "":
             continue  # Si la línea está vacía, pasa a la siguiente iteración del ciclo
         newText += [re.sub(" +", " ", line)]  # Reemplaza múltiples espacios consecutivos por un solo espacio
@@ -80,6 +111,9 @@ def cleanText(text):
 # Esta función compila el código a binario y genera un archivo de salida.
 # Recibe como parámetro la ruta del archivo de entrada.
 def compile_code(file_path, mem_path):
+
+    pattern = r'(\b\w+\b|\w+\[\d+\]|\w+)'
+
     try:
         file = open(file_path)
         text = file.read()
@@ -90,8 +124,11 @@ def compile_code(file_path, mem_path):
 
         binResult = ""
         for (i, l) in enumerate(text):
-            instr = l.split(" ")[0]
-            params = "".join(l.split(" ")[1:]).split(",")
+            line = re.findall(pattern, l)
+            line = [int(s) if s.isdigit() else s for s in line]
+            instr = line[0]
+            params = line[1:]
+            print("params:", params)
             if(not INSTR.get(instr)):
                 raise Exception("OP NOT RECOGNIZED LINE ({}) '{}'".format(i, l))
 
@@ -122,6 +159,7 @@ def compile_code(file_path, mem_path):
             elif (category == "MOVI"):
                 result += "R{0}({0:04b})".format(REGISTERS[params[0]])
                 result += "I{0}({0:016b})".format(int(params[1]))
+
             # Guardar palabra
             elif (category == "STW"):
                 result += "('0000')"
@@ -134,6 +172,38 @@ def compile_code(file_path, mem_path):
             elif (category == "MOV"):
                 for r in params:
                     result += "R{0}({0:04b})".format(REGISTERS[r])
+            # Aritmética Vectorial
+            elif (category == "VART"):
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
+            
+            elif (category == "VCMP"):
+                result += "('0000')"
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
+            
+            elif (category == "VMOV"):
+                result += "VR{0}({0:04b})".format(VREGISTERS[params[0]])
+                result += "VR{0}({0:04b})".format(REGISTERS[params[2]])
+                result += '(0000000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
+                result += "VR{0}({0:03b})".format(int(params[1]))
+            elif (category == "VLDW"):
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(0000000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
+
+            elif (category == "VSTW"):
+                result += "('0000')"
+                for r in params:
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += '(000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
+            
+            elif (category == "VBRC"):
+                result += "VR{0}({0:04b})".format(VREGISTERS[params[0]])
+                result += "R{0}({0:04b})".format(REGISTERS[params[1]])
+                result += '(0000000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
 
             print(result)
 
@@ -165,10 +235,15 @@ def compile_code(file_path, mem_path):
         raise Exception(f"No se encontró el archivo '{file_path}'.")  # Genera una excepción si no se encuentra el archivo de entrada
 
 
-
 if __name__ == "__main__":
-    file_path = "proyecto_2/Ensamblador/base.asm"
-    mem_path  = "proyecto_2/Procesador/instr-algo.txt"
-    compile_code(file_path, mem_path)
+    #file_path = "proyecto_2/Ensamblador/square.asm"
+    #mem_path  = "proyecto_2/Procesador/instr-algo.txt"
 
-    
+    file_dir = pathlib.Path(__file__).parent.resolve()
+    print(file_dir)
+    file_path = '..\Ensamblador\\base.asm'
+    file_path = os.path.join(file_dir, file_path)
+    print(file_path)
+    mem_path  = "..\Procesador\instr-algo.txt"
+    mem_path = os.path.join(file_dir, mem_path)
+    compile_code(file_path, mem_path)

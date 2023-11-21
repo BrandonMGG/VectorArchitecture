@@ -40,10 +40,13 @@ endWhite:
     res r2, r2, r4      ; ultimo pixel
     esc r2, r9
     movi r0, 0
+
+
 ;---------------------------Generar cuadrado---------------------------
 
 init_square:
-    movi r0, 2349           ; referencia en mem para add en la coordenada (25,24) 2349 = 100x23 + 25 + offset[24]
+    movi r0, 2449           ; referencia en mem para add en la coordenada (25,25) 2449 = 100x24 + 25 + offset[24]
+
     res r2, r2, r2          ; reset a 0
     sum r2, r2, r0          ; direccion relativa a la memoria de salida[24-10024]
     res r3, r3, r3          ; reset a 0 y limit < = 100
@@ -59,22 +62,24 @@ init_square:
     crg r6, r0              ; r6 tiene el valor FFA500    
 
 square_y:
-    cmp r3, r7
+    cmp r3, r7              ; y 26
     sig end_square
-    res r1, r1, r1
-    sum r3, r3, r4
-    movi r1, 25
-    sum r2, r2, r11
 
 square_x:
     cmp r1, r7
-    sig square_y
+    sig new_address
 
     esc r2, r6              ; escribir pixel naranja a memoria
-    sum r1, r1, r4
+    sum r1, r1, r4          ; r4 es 1, es solo para incrmento
     sum r2, r2, r4
     sali square_x
-    
+
+new_address:
+    movi r1, 25             ; x_0[25] reinicia contador de columna
+    sum r2, r2, r11         ; nuevo address = width + address actual [2449 i = 1]
+    sum r3, r3, r4
+    sali square_y
+
 end_square:
     movi r0, 0
     movi r5, 0

@@ -68,7 +68,8 @@ INSTR = {
     "vcmp":     {"OP": 10,  "category": "VCMP", "optype": 1},
     "vmov":     {"OP": 3,   "category": "VMOV", "optype": 3},
     "vcrg":     {"OP": 7,   "category": "VLDW", "optype": 1},
-    "vesc":     {"OP": 1,   "category": "VSTW", "optype": 1}
+    "vesc":     {"OP": 1,   "category": "VSTW", "optype": 1},
+    "vbrc":     {"OP": 2,   "category": "VBRC", "optype": 3}
 }
 
 # Esta función busca las etiquetas en el texto y crea un diccionario con las etiquetas y sus índices de línea correspondientes.
@@ -188,14 +189,19 @@ def compile_code(file_path, mem_path):
                 result += "VR{0}({0:03b})".format(int(params[1]))
             elif (category == "VLDW"):
                 for r in params:
-                    result += "R{0}({0:04b})".format(VREGISTERS[r])
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
                 result += '(0000000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
 
             elif (category == "VSTW"):
                 result += "('0000')"
                 for r in params:
-                    result += "R{0}({0:04b})".format(VREGISTERS[r])
+                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
                 result += '(000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
+            
+            elif (category == "VBRC"):
+                result += "VR{0}({0:04b})".format(VREGISTERS[params[0]])
+                result += "R{0}({0:04b})".format(REGISTERS[params[1]])
+                result += '(0000000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
 
 
             print(result)

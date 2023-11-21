@@ -59,4 +59,5 @@ vectorial:
     vcmp vr0, vr15
     vcrg vr1, vr10
     vesc vr8, vr4
+    vbrc vr1, r15
     

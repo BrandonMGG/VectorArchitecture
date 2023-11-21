@@ -66,7 +66,7 @@ INSTR = {
     "vres":     {"OP": 6,   "category": "VART", "optype": 1},
     "vmul":     {"OP": 8,   "category": "VART", "optype": 1},
     "vcmp":     {"OP": 10,  "category": "VCMP", "optype": 1},
-    "vmov":     {"OP": 3,   "category": "VMOV", "optype": 1},
+    "vmov":     {"OP": 3,   "category": "VMOV", "optype": 3},
     "vcrg":     {"OP": 7,   "category": "VLDW", "optype": 1},
     "vesc":     {"OP": 1,   "category": "VSTW", "optype": 1}
 }
@@ -108,6 +108,9 @@ def cleanText(text):
 # Esta función compila el código a binario y genera un archivo de salida.
 # Recibe como parámetro la ruta del archivo de entrada.
 def compile_code(file_path, mem_path):
+
+    pattern = r'(\b\w+\b|\w+\[\d+\]|\w+)'
+
     try:
         file = open(file_path)
         text = file.read()
@@ -118,8 +121,11 @@ def compile_code(file_path, mem_path):
 
         binResult = ""
         for (i, l) in enumerate(text):
-            instr = l.split(" ")[0]
-            params = "".join(l.split(" ")[1:]).split(",")
+            line = re.findall(pattern, l)
+            line = [int(s) if s.isdigit() else s for s in line]
+            instr = line[0]
+            params = line[1:]
+            print("params:", params)
             if(not INSTR.get(instr)):
                 raise Exception("OP NOT RECOGNIZED LINE ({}) '{}'".format(i, l))
 
@@ -150,6 +156,7 @@ def compile_code(file_path, mem_path):
             elif (category == "MOVI"):
                 result += "R{0}({0:04b})".format(REGISTERS[params[0]])
                 result += "I{0}({0:016b})".format(int(params[1]))
+
             # Guardar palabra
             elif (category == "STW"):
                 result += "('0000')"
@@ -175,10 +182,10 @@ def compile_code(file_path, mem_path):
                 result += '(000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
             
             elif (category == "VMOV"):
-                for r in params:
-                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                result += "VR{0}({0:04b})".format(VREGISTERS[params[0]])
+                result += "VR{0}({0:04b})".format(REGISTERS[params[2]])
                 result += '(0000000)' + "optype{0}({0:02b})".format(INSTR[instr]["optype"])
-
+                result += "VR{0}({0:03b})".format(int(params[1]))
             elif (category == "VLDW"):
                 for r in params:
                     result += "R{0}({0:04b})".format(VREGISTERS[r])

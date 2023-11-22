@@ -18,7 +18,7 @@ module dOutMem #(parameter WIDTH = 24, parameter DEPTH = 10000,parameter PIXEL =
 				
 	
 		// WRITE
-		always_ff @(posedge clk)
+		always_ff @(negedge clk)
         begin
             if (we) 
                 begin

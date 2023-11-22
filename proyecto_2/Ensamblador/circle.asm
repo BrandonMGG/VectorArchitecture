@@ -1,7 +1,8 @@
 switch:
-    movi r2, 1         ; busco el valor seteado en r1
+    movi r2, 20         ; busco el valor seteado en r1
     movi r0, 1   
-    cmp r2, r0          ; si es igual a 1 inicia el programa
+    crg r1, r2
+    cmp r1, r0          ; si es igual a 1 inicia el programa
     sig start        
     sali switch
 ;Probar las instrucciones basicas de la micro-arquitectura
@@ -61,6 +62,7 @@ circle_y:
     sig end_circle
     movi r1, 0
     sum r3, r3, r4
+    out r6
 
 
 ; r5 es y_values = y - y_c luego r5 dy^2

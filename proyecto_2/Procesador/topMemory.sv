@@ -51,7 +51,7 @@ module topMemory #(parameter WIDTH = 24, parameter INSTRUCTIONWIDTH = 24,paramet
 			//>>>>>>>>>>>>>>>>>>>>>>> Read data
 		
 			// -------------- Switch de inicio. Se necesita al inicio del programa, donde, si rd2 = 1 se inicia y si no se espera a que este tenga tal valor.
-			if (a2 == 'd180302) rd2 = startIOExtended; 
+			if (a2 == 'd20) rd2 = startIOExtended; 
 			
 			else if (a2 < 'd24) rd2 = rd_in; // 0<=a2<24
 						 

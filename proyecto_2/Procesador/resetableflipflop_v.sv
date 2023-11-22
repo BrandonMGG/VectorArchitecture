@@ -15,7 +15,7 @@ module resetableflipflop_v #(parameter WIDTH = 24,parameter VECTOR_WIDTH = 8)
 		output logic [VECTOR_WIDTH-1:0][WIDTH-1:0] q
 	);
 	
-	logic [WIDTH-1:0] out;
+	logic [VECTOR_WIDTH-1:0][WIDTH-1:0] out;
 	
 	always_ff @(posedge clk) begin
 		if (reset) begin
@@ -41,5 +41,5 @@ module resetableflipflop_v #(parameter WIDTH = 24,parameter VECTOR_WIDTH = 8)
 							  
 							  end
 	end
-	assign q = {out[0],out[1] ,out[2] ,out[3] ,out[4] ,out[5] ,out[6],out[7]   };
+	assign q = {out[0],out[1] ,out[2] ,out[3] ,out[4] ,out[5] ,out[6],out[7]  };
 endmodule

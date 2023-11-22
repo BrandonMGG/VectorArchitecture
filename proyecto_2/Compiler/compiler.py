@@ -66,8 +66,10 @@ INSTR = {
     "vsum":     {"OP": 5,   "category": "VART", "vecEsc": 2},
     "vres":     {"OP": 6,   "category": "VART", "vecEsc": 2},
     "vmul":     {"OP": 8,   "category": "VART", "vecEsc": 2},
-    "vcmp":     {"OP": 10,  "category": "VCMP", "vecEsc": 2},
+    "vand":     {"OP": 9,   "category": "VART", "vecEsc": 2},
+    "vcmplt":   {"OP": 14,  "category": "VART", "vecEsc": 2},
     "vmov":     {"OP": 3,   "category": "VMOV", "vecEsc": 3},
+    "vmovf":    {"OP": 3,   "category": "VLDW", "vecEsc": 2},
     "vcrg":     {"OP": 7,   "category": "VLDW", "vecEsc": 2},
     "vesc":     {"OP": 1,   "category": "VSTW", "vecEsc": 2},
     "vbrc":     {"OP": 2,   "category": "VBRC", "vecEsc": 3}

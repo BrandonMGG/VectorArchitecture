@@ -35,4 +35,16 @@ vmov VR1[7], R3
 
 ; SUMAR LO VALORES Y GUARDARLOS EN EL VECTOR VR3
 vsum VR3, VR0, VR1
-    
+
+
+; pruebas vectoriales
+vsum vr15, vr0, vr15
+vres vr15, vr0, vr15
+vmul vr15, vr0, vr15
+vand vr15, vr0, vr15
+vcmplt vr15, vr0, vr15
+vmov vr15[6], r0
+vmovf vr15, vr0
+
+vcrg vr15, vr0
+vesc vr15, vr1

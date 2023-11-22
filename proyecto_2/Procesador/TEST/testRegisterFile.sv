@@ -4,12 +4,22 @@ module testRegisterFile();
 	logic [3:0] pointToAddress1, pointToAddress2, pointToAddressToWrite;
 	logic [15:0] writeData3, PC;
 	logic [15:0] readData1, readData2;
+	logic isvector,vect_esc;
 
 	
-	regfile registerFile(clk, writeEnable, 
-								pointToAddress1, pointToAddress2, pointToAddressToWrite,
-								writeData3, PC,
-								readData1, readData2);
+	regfile #(16, 16, 4) registerFile (
+	  .clk(clk),
+	  .we3(writeEnable),
+	  .ra1(pointToAddress1),
+	  .ra2(pointToAddress2),
+	  .wa3(pointToAddressToWrite),
+	  .wd3(writeData3),
+	  .PC(PC),
+	  .isvector(isvector),
+	  .vect_esc(vect_esc),
+	  .rd1(readData1),
+	  .rd2(readData2)
+	);
 						
 	//Creacion de un reloj
 	always begin
@@ -19,7 +29,8 @@ module testRegisterFile();
 	
 	initial begin	
 		#5;
-	 
+		vect_esc = 1'b0;
+		isvector = 1'b0;
 		// Ejemplo 1: MOV R3, #9 
 		// Escritura (secuencial)
 		pointToAddressToWrite = 4'd3; writeData3 = 16'd9; writeEnable = 1; #6; writeEnable = 0; #4;
@@ -27,9 +38,24 @@ module testRegisterFile();
 		// Ejemplo 2: MOV R6, #1 
 		pointToAddressToWrite = 4'd6; writeData3 = 16'd5; writeEnable = 1; #6; writeEnable = 0; #4;
 		
+		vect_esc = 1'b0;
+		isvector = 1'b1;
+		
+		// Ejemplo 1: MOV R3, #9 
+		// Escritura (secuencial)
+		pointToAddressToWrite = 4'd4; writeData3 = 16'd8; writeEnable = 1; #6; writeEnable = 0; #4;
+		
+		// Ejemplo 2: MOV R6, #1 
+		pointToAddressToWrite = 4'd6; writeData3 = 16'd3; writeEnable = 1; #6; writeEnable = 0; #4;
+		
+		
+		
 		// Ejemplo 3: ADD R4, R3, R9
 		// Lectura (combinacional)
 		pointToAddress1 = 4'd3;
+		pointToAddress2 = 4'd6; #10;
+		
+		pointToAddress1 = 4'd4;
 		pointToAddress2 = 4'd6; #10;
 		
 		// Ejemplo 4: B salto

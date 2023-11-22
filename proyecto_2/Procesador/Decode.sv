@@ -48,11 +48,11 @@ module Decode #(parameter WIDTH = 	24, parameter REGNUM = 8,
 	assign opcode = instruction[23:20];
 	assign  index = instruction[2:0];
 	assign index1 = instruction[2:0];
-	assign isvector = instruction[4];
-	assign vect_esc = instruction[3];
+	//assign isvector = instruction[4];
+	//assign vect_esc = instruction[3];
 	logic [WIDTH-1:0] reg1Content_s, reg2Content_s, reg1Content_v,reg2Content_v;
-	//assign isvector = 1'b0;
-	//assign vect_esc = 1'b0;
+	assign isvector = 1'b0;
+	assign vect_esc = 1'b0;
 	
 	regfile #(WIDTH, REGNUM, ADDRESSWIDTH) registerFile (!clock, writeEnable, 
 				reg1Address,reg2Address, 

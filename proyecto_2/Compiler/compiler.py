@@ -66,10 +66,12 @@ INSTR = {
     "vsum":     {"OP": 5,   "category": "VART", "vecEsc": 2},
     "vres":     {"OP": 6,   "category": "VART", "vecEsc": 2},
     "vmul":     {"OP": 8,   "category": "VART", "vecEsc": 2},
-    "vcmp":     {"OP": 10,  "category": "VCMP", "vecEsc": 2},
+    "vand":     {"OP": 9,   "category": "VART", "vecEsc": 2},
+    "vcmplt":   {"OP": 14,  "category": "VART", "vecEsc": 2},
     "vmov":     {"OP": 3,   "category": "VMOV", "vecEsc": 3},
+    "vmovf":    {"OP": 3,   "category": "VLDW", "vecEsc": 2},
     "vcrg":     {"OP": 7,   "category": "VLDW", "vecEsc": 2},
-    "vesc":     {"OP": 1,   "category": "VSTW", "vecEsc": 2},
+    "vesc":     {"OP": 1,   "category": "VSTW", "vecEsc": 3},
     "vbrc":     {"OP": 2,   "category": "VBRC", "vecEsc": 3}
 }
 
@@ -196,8 +198,10 @@ def compile_code(file_path, mem_path):
 
             elif (category == "VSTW"):
                 result += "('0000')"
-                for r in params:
-                    result += "VR{0}({0:04b})".format(VREGISTERS[r])
+                
+                result += "VR{0}({0:04b})".format(VREGISTERS[params[0]])
+                result += "R{0}({0:04b})".format(REGISTERS[params[1]])
+
                 result += '(000)' + "vecEsc{0}({0:02b})".format(INSTR[instr]["vecEsc"])
             
             elif (category == "VBRC"):
@@ -241,11 +245,9 @@ if __name__ == "__main__":
 
     file_dir = pathlib.Path(__file__).parent.resolve()
     print(file_dir)
-    file_path = '..\Ensamblador\\squarexcircle.asm'
+    file_path = '..\Ensamblador\\base.asm'
     file_path = os.path.join(file_dir, file_path)
     print(file_path)
     mem_path  = "..\Procesador\instr-algo.txt"
     mem_path = os.path.join(file_dir, mem_path)
     compile_code(file_path, mem_path)
-
-    

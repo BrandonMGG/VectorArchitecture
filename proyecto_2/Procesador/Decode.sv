@@ -39,20 +39,20 @@ module Decode #(parameter WIDTH = 	24, parameter REGNUM = 8,
 	 output logic [2:0] index1
 	 );
 		
-	
+	logic [2:0] index;
 	assign reg1Address = instruction[15:12];
 	assign reg2Address = instruction[11:8];
 	assign regDestinationAddress = instruction[19:16];
 	assign inmediate[15:0] = instruction[15:0];
 	assign inmediate[WIDTH-1:16] = 0; //Debido a que inm es de 36 bits y la instruccion es solo de 24
 	assign opcode = instruction[23:20];
-	assign index = instruction[2:0];
+	assign  index = instruction[2:0];
 	assign index1 = instruction[2:0];
-	//assign isvector = instruction[4];
-	//assign vect_esc = instruction[3];
-	logic [WIDTH-1:0] reg1Content_s, reg2Content_s;
-	assign isvector = 1'b0;
-	assign vect_esc = 1'b0;
+	assign isvector = instruction[4];
+	assign vect_esc = instruction[3];
+	logic [WIDTH-1:0] reg1Content_s, reg2Content_s, reg1Content_v,reg2Content_v;
+	//assign isvector = 1'b0;
+	//assign vect_esc = 1'b0;
 	
 	regfile #(WIDTH, REGNUM, ADDRESSWIDTH) registerFile (!clock, writeEnable, 
 				reg1Address,reg2Address, 

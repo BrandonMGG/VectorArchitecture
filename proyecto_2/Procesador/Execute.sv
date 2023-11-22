@@ -16,7 +16,7 @@ module Execute #(parameter WIDTH = 24,parameter VECTOR_WIDTH = 8)
 	 input logic [2:0] ALUControlE,
 	 input logic ALUSrcE,
 	 input logic [1:0] data1ForwardSelector, data2ForwardSelector,
-	 input [VECTOR_WIDTH-1:0] [WIDTH-1:0] A,B,
+	 input logic [VECTOR_WIDTH-1:0] [WIDTH-1:0] A,B,
 	 input logic isvector,
 	 output logic [WIDTH-1:0] data2AfterForward, ALUResultE,
 	 output logic [VECTOR_WIDTH-1:0] [WIDTH-1:0] Out_v,

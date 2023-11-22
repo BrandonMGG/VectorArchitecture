@@ -241,7 +241,7 @@ if __name__ == "__main__":
 
     file_dir = pathlib.Path(__file__).parent.resolve()
     print(file_dir)
-    file_path = '..\Ensamblador\\base.asm'
+    file_path = '..\Ensamblador\\square_lines.asm'
     file_path = os.path.join(file_dir, file_path)
     print(file_path)
     mem_path  = "..\Procesador\instr-algo.txt"

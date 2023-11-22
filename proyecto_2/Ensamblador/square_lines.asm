@@ -56,7 +56,7 @@ init_square:
     sum r3, r3, r0         ; set y = 25 y, limit < = 100
     sum r1, r1, r0         ; set x = 25 x, limit < = 100
     movi r11, 50          ; para moverse en el cuadrado
-    movi r7, 75            ; esquina  + lado = 25 + 50  
+    movi r7, 76            ; esquina  + lado = 25 + 50  
     
     movi r0, 14             ; direccion en mem para color naranja
     crg r6, r0              ; r6 tiene el valor FFA500    

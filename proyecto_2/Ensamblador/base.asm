@@ -47,4 +47,4 @@ vmov vr15[6], r0
 vmovf vr15, vr0
 
 vcrg vr15, vr0
-vesc vr15, vr1
+vesc vr15, r1
